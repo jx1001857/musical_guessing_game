@@ -245,7 +245,29 @@ class GameWindow < Gosu::Window
             @first_time_play = true
             @listen = false
             @round_num = 0
-            @pop_songs = @pop_songs.shuffle
+            @pop_songs = [[@let_it_go, "let it go", "idina menzel"],
+                          [@bad_blood, "bad blood", "taylor swift"],
+                          [@thousand_years, "a thousand years", "christina perri"],
+                          [@all_of_me, "all of me", "john legend"],
+                          [@wrecking_ball, "wrecking ball", "miley cyrus"],
+                          [@thinking_out_loud, "thinking out loud", "ed sheeran"],
+                          [@say_something, "say something", "a great big world", "christina aguilera"],
+                          [@demons, "demons", "imagine dragons"],
+                          [@call_me_maybe, "call me maybe", "carly rae jepsen"],
+                          [@centuries, "centuries", "fall out boy"],
+            # [@counting_stars, "counting stars", "onerepublic"],
+            # [@heartbeat_song, "heartbeat song", "kelly clarkson"],
+            # [@let_her_go, "let her go", "passenger"],
+            # [@love_the_way_you_lie, "love the way you lie", "eminem", "feat. rihanna"],
+            # [@pompeii, "pompeii", "bastille"],
+            # [@rolling_in_the_deep, "rolling in the deep", "adele"],
+            # [@royals, "royals", "lorde"],
+            # [@stay_with_me, "stay with me", "sam smith"],
+            # [@story_of_my_life, "story of my life", "one direction"],
+            # [@take_me_to_church, "take me to church", "hozier"],
+            # [@wake_me_up, "wake me up", "avicii"],
+            # [@my_immortal, "my immortal", "evanescence"]
+            ].shuffle
           end
         end
     end
@@ -305,6 +327,7 @@ class GameWindow < Gosu::Window
       elsif @win
         @you_win.draw(125, 15, ZOrder::Text)
       end
+
       @start = 3
     end
   end
