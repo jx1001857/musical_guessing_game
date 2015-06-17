@@ -73,16 +73,23 @@ class GameWindow < Gosu::Window
     super 640, 400, false
     self.caption = 'Music Guessing Game'
 
-    @black_background_image = Gosu::Image.new("media/background.jpg", :tileable => true)
-    @white_background_image = Gosu::Image.new("media/white_music_background.jpg", :tileable => true)
-    @exit_background = Gosu::Image.new("media/music_background2.png", :tileable => true)
+    @black_background_image = Gosu::Image.new("images/background.jpg", :tileable => true)
+    @white_background_image = Gosu::Image.new("images/white_music_background.jpg", :tileable => true)
+    @exit_background = Gosu::Image.new("images/music_background2.png", :tileable => true)
+    @music_background = Gosu::Image.new("images/music.jpg")
+
     @font = Gosu::Font.new(self, Gosu::default_font_name, 24)
     @heading_font = Gosu::Font.new(self, "French Script MT", 90)
     @answer_font = Gosu::Font.new(self, "Mistral", 50)
+    @levels_font = Gosu::Font.new(self, "Harlow Solid Italic", 100)
+    @wrong_answer_font = Gosu::Font.new(self, "Times New Roman", 25)
 
     @play1 = Gosu::Image.from_text("PLAY", 90, options = {:font => "Broadway"})
     @play_song = Gosu::Image.from_text("<u>Play the song</u>", 60, options = {:font => "Mistral"})
     @title = Gosu::Image.from_text("<b>Can you guess the song?</b>", 90, options = {:font => "French Script MT", :width => 350, :align => :center})
+
+    @easy = Gosu::Image.from_text("guess artist or song title", 50, options = {:font => "Harlow Solid Italic", :width => 400})
+    @hard = Gosu::Image.from_text("guess song title", 50, options = {:font => "Harlow Solid Italic", :width => 400})
 
     @round_num = 0
 
@@ -90,64 +97,158 @@ class GameWindow < Gosu::Window
     @next = false
 
     @final_points = Gosu::Image.from_text("Points: #{@round_num}", 50, options = {:font => "Mistral"})
-    @final_points_font = Gosu::Font.new(self, "Mistral", 50)
 
     @you_lose = Gosu::Image.from_text("YOU LOSE", 90, options = {:font => "Broadway"})
-    @you_win = Gosu::Image.from_text("YOU WIN", 90, options = {:font => "Broadway"})
+    @you_win = Gosu::Image.from_text("YOU WIN!", 90, options = {:font => "Broadway"})
 
-    @play_again = Gosu::Image.from_text()
+    @play_again = Gosu::Image.from_text("Play Again?", 50, options = {:font => "Harlow Solid Italic"})
 
-    @let_it_go = Gosu::Sample.new('media/let_it_go.wav')
-    @bad_blood = Gosu::Sample.new('media/bad blood.wav')
-    @pop_songs = [[@let_it_go, "let it go"], [@bad_blood, "bad blood"]].shuffle
-    @play_button = Gosu::Image.new('media/play.jpg', :tileable => false)
+    @let_it_go = Gosu::Song.new('songs/let_it_go.wav')
+    @bad_blood = Gosu::Song.new('songs/bad blood.wav')
+    @thousand_years = Gosu::Song.new('songs/a thousand years.wav')
+    @all_of_me = Gosu::Song.new('songs/all of me.wav')
+    @wrecking_ball = Gosu::Song.new('songs/wrecking ball.wav')
+    @thinking_out_loud = Gosu::Song.new('songs/thinking out loud.wav')
+    @say_something = Gosu::Song.new('songs/say something.wav')
+    @demons = Gosu::Song.new('songs/demons.wav')
+    @call_me_maybe = Gosu::Song.new('songs/call me maybe.wav')
+    @centuries = Gosu::Song.new('songs/centuries.wav')
+    # @counting_stars = Gosu::Song.new('song/counting stars.wav')
+    # @heartbeat_song = Gosu::Song.new('song/heartbeat songs.wav')
+    # @let_her_go = Gosu::Song.new('song/heartbeat songs.wav')
+    # @love_the_way_you_lie = Gosu::Song.new('song/love the way you lie.wav')
+    # @pompeii = Gosu::Song.new('song/pompeii.wav')
+    # @rolling_in_the_deep = Gosu::Song.new('song/rolling in the deep.wav')
+    # @royals = Gosu::Song.new('song/royals.wav')
+    # @stay_with_me = Gosu::Song.new('song/stay with me.wav')
+    # @story_of_my_life = Gosu::Song.new('song/story of my life.wav')
+    # @take_me_to_church = Gosu::Song.new('song/take me to church.wav')
+    # @wake_me_up = Gosu::Song.new('song/wake me up.wav')
+    # @my_immortal = Gosu::Song.new('song/my immortal.wav')
+
+    @pop_songs = [[@let_it_go, "let it go", "idina menzel"],
+                  [@bad_blood, "bad blood", "taylor swift"],
+                  [@thousand_years, "a thousand years", "christina perri"],
+                  [@all_of_me, "all of me", "john legend"],
+                  [@wrecking_ball, "wrecking ball", "miley cyrus"],
+                  [@thinking_out_loud, "thinking out loud", "ed sheeran"],
+                  [@say_something, "say something", "a great big world", "christina aguilera"],
+                  [@demons, "demons", "imagine dragons"],
+                  [@call_me_maybe, "call me maybe", "carly rae jepsen"],
+                  [@centuries, "centuries", "fall out boy"],
+                  # [@counting_stars, "counting stars", "onerepublic"],
+                  # [@heartbeat_song, "heartbeat song", "kelly clarkson"],
+                  # [@let_her_go, "let her go", "passenger"],
+                  # [@love_the_way_you_lie, "love the way you lie", "eminem", "feat. rihanna"],
+                  # [@pompeii, "pompeii", "bastille"],
+                  # [@rolling_in_the_deep, "rolling in the deep", "adele"],
+                  # [@royals, "royals", "lorde"],
+                  # [@stay_with_me, "stay with me", "sam smith"],
+                  # [@story_of_my_life, "story of my life", "one direction"],
+                  # [@take_me_to_church, "take me to church", "hozier"],
+                  # [@wake_me_up, "wake me up", "avicii"],
+                  # [@my_immortal, "my immortal", "evanescence"]
+                  ].shuffle
+
+    @play_button = Gosu::Image.new('images/play.jpg', :tileable => false)
 
     @start = 0
     @keya_pressed = false
     @next_screen = 0
     @answered = false
-    @points = 0
     @lose = false
     @win = false
+    @first_time_play = true
+    @listen = false
 
-    @text_field = TextField.new(self, @font, 300, 250)
-  end
-
-  def update
+    @text_field = TextField.new(self, @font, 330, 250)
   end
 
   def button_down (id)
     case id
       when Gosu::MsLeft
-        if mouse_x > 340 && mouse_x < 595 && mouse_y < 335 && mouse_y > 250
-          @start = 1
-        end
-        if mouse_x > 155 && mouse_x < 195 && mouse_y < 190 && mouse_y > 150
-          if @start
-            song = @pop_songs[@round_num][0]
-            song.play
+        if @first_time_play
+          if mouse_x > 340 && mouse_x < 595 && mouse_y < 335 && mouse_y > 250
+            @start = 1
+            @first_time_play = false
           end
         end
-        if mouse_x > 420 && mouse_x < 600 && mouse_y < 375 && mouse_y > 315
-          if @text_field.text == @pop_songs[@round_num][1]
-            @answered = true
-            @points += 1
-          elsif @text_field.text != @pop_songs[@round_num][1] && @text_field.text != "Input Answer Here"
-            @start = 2
-            @lose = true
-          end
 
-          if @answered == true
-            @next = true
-            @round_num += 1
-            if @round_num == 2
-              @win = true
-              @start = 2
+        if @change == 0
+          if mouse_x > 74 && mouse_x < 346 && mouse_y > 91 && mouse_y < 177
+            @level = "easy"
+            @start = 5
+            @change = 1
+          elsif mouse_x > 226 && mouse_x < 535 && mouse_y > 243 && mouse_y < 326
+            @level = "hard"
+            @start = 5
+            @change = 1
+          end
+        end
+
+        if mouse_x > 155 && mouse_x < 195 && mouse_y < 190 && mouse_y > 150
+          if @start == 5
+            @song = @pop_songs[@round_num][0]
+            @song.play
+            @listen = true
+          end
+        end
+
+        if @round_num < @pop_songs.count && !@lose && !@win
+          if @listen
+            if mouse_x > 420 && mouse_x < 600 && mouse_y < 375 && mouse_y > 315
+              if @level == "hard"
+                if @text_field.text == @pop_songs[@round_num][1]
+                  @answered = true
+                elsif @text_field.text != @pop_songs[@round_num][1] && @text_field.text != "Input Answer Here"
+                  @start = 2
+                  @lose = true
+                  @song.stop
+
+                  @wrong_answer = @pop_songs.dup
+                  @answer = @wrong_answer[@round_num]
+                  @answer.shift
+                  @string_answer = @answer.join(', ')
+                end
+              elsif @level == "easy"
+                if @pop_songs[@round_num].include?(@text_field.text)
+                  @answered = true
+                elsif !@pop_songs[@round_num].include?(@text_field.text) && @text_field.text != "Input Answer Here"
+                  @start = 2
+                  @lose = true
+                  @song.stop
+
+                  @wrong_answer = @pop_songs.dup
+                  @answer = @wrong_answer[@round_num]
+                  @answer.shift
+                  @string_answer = @answer.join(', ')
+                end
+              end
+
+              if @answered
+                @song.stop
+                @next = true
+                @round_num += 1
+                if @round_num == @pop_songs.count
+                  @win = true
+                  @start = 2
+                end
+              end
             end
           end
         end
-    end
 
+        if @start == 3
+          if mouse_x > 320 && mouse_x < 535 && mouse_y > 287 && mouse_y < 330
+            @start = 0
+            @lose = false; @win = false
+            @first_time_play = true
+            @listen = false
+            @round_num = 0
+            @pop_songs = @pop_songs.shuffle
+          end
+        end
+    end
     if id == Gosu::MsLeft && @text_field.under_point?(mouse_x, mouse_y) then
       self.text_input = @text_field
     end
@@ -166,6 +267,15 @@ class GameWindow < Gosu::Window
     end
 
     if @start == 1
+      @music_background.draw(0, 0, ZOrder::Background)
+      @levels_font.draw("EASY", 75, 75, ZOrder::Text, 1, 1, Gosu::Color::FUCHSIA)
+      @easy.draw(75, 165, ZOrder::Text, 1, 1, Gosu::Color::GREEN)
+      @levels_font.draw("HARD", 225, 225, ZOrder::Text, 1, 1, Gosu::Color::FUCHSIA)
+      @hard.draw(225, 305, ZOrder::Text, 1, 1, Gosu::Color::GREEN)
+      @change = 0
+    end
+
+    if @start == 5
       @white_background_image.draw(0, 0, ZOrder::Background)
       @play_song.draw(200, 140, ZOrder::Text, 1, 1, Gosu::Color::BLACK)
 
@@ -174,7 +284,7 @@ class GameWindow < Gosu::Window
       draw_quad(155, 150, 0xffff0000, 195, 150, 0xffff00ff, 195, 190, 0xffff0000, 155, 190, 0xffff00ff, ZOrder::Graphics)
       @play_button.draw(155, 150, ZOrder::Graphics)
 
-      @answer_font.draw("Answer:", 175, 235, ZOrder::Text, 1, 1, Gosu::Color::BLACK, mode = :default)
+      @answer_font.draw("Name of song:", 120, 235, ZOrder::Text, 1, 1, Gosu::Color::BLACK, mode = :default)
       @text_field.draw
 
       @next_word.draw(450, 320, ZOrder::Text, 1, 1, Gosu::Color::BLUE)
@@ -183,31 +293,24 @@ class GameWindow < Gosu::Window
       @font.draw("Points: #{@round_num}", 10, 370, ZOrder::Text, 1, 1, Gosu::Color::BLACK, mode = :default)
     end
 
-    if @lose || @win
+    if @win || @lose
       @exit_background.draw(0, 0, ZOrder::Background)
-      # @final_points.draw(440, 200, ZOrder::Text)
-      @final_points_font.draw("Points: #{@round_num}", 440, 200, ZOrder::Text, 1, 1, Gosu::Color::WHITE, mode = :default)
+      @answer_font.draw("Points: #{@round_num}", 100, 280, ZOrder::Text, 1, 1, Gosu::Color::WHITE, mode = :default)
+      @play_again.draw(320, 280, ZOrder::Graphics)
       if @lose
-      @you_lose.draw(110, 80, ZOrder::Text)
-      elsif @win
-        @you_win.draw(120, 80, ZOrder::Text)
-      end
-    end
-    # if @keya_pressed
-    #   @font.draw("a", 10, 30, 1.0, 1.0, 1.0)
-    # end
+        @you_lose.draw(110, 15, ZOrder::Text)
+        @wrong_answer_font.draw("Answer to missed song:", 10, 330, ZOrder::Text, 1, 1, Gosu::Color::WHITE, mode = :default)
+        @wrong_answer_font.draw("#{@string_answer}", 10, 360, ZOrder::Text, 1, 1, Gosu::Color::WHITE, mode = :default)
 
-    # draw_quad(x-size, y-size, 0xffffffff, x+size, y-size, 0xffffffff, x-size, y+size, 0xffffffff, x+size, y+size, 0xffffffff, 0)
-    # draw_triangle(x1, y1, c1, x2, y2, c2, x3, y3, c3, z=0, mode=:default)
-    # draw_line(x1, y1, c1, x2, y2, c2, z=0, mode=:default)
-    # @font.draw("This should be <c=ffff00>yellow</c> => this part changes the text inside to that color", 10, 10, 1.0, 1.0, 1.0, Gosu::Color::BLUE => this changes entire text)
-    # @font.draw("This should be <b>bold</b>", 10, 30, 1.0, 1.0, 1.0)
-    # @font.draw("This should be <i>italic</i>", 10, 50, 1.0, 1.0, 1.0)
-    # @font.draw("This should be <u>underlined</u>", 10, 70, 1.0, 1.0, 1.0)
+      elsif @win
+        @you_win.draw(125, 15, ZOrder::Text)
+      end
+      @start = 3
+    end
   end
 end
 
 window = GameWindow.new
 window.show
 
-# text fields from http://oflute.googlecode.com/svn/tutGosu/ejemplo/gosu/examples/TextInput.rb
+# text box from http://oflute.googlecode.com/svn/tutGosu/ejemplo/gosu/examples/TextInput.rb
