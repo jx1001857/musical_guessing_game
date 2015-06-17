@@ -77,7 +77,7 @@ class GameWindow < Gosu::Window
     @white_background_image = Gosu::Image.new("images/white_music_background.jpg", :tileable => true)
     @exit_background = Gosu::Image.new("images/music_background2.png", :tileable => true)
     @music_background = Gosu::Image.new("images/music.jpg")
-    @alternate_background = Gosu::Image.new("images/alternate background.jpg")
+    @alternate_background = Gosu::Image.new("images/alternate background2.jpg")
 
     @font = Gosu::Font.new(self, Gosu::default_font_name, 24)
     @heading_font = Gosu::Font.new(self, "French Script MT", 90)
@@ -300,26 +300,20 @@ class GameWindow < Gosu::Window
     if @start == 5
       if @round_num.odd?
         @white_background_image.draw(0, 0, ZOrder::Background)
-        @play_song.draw(200, 140, ZOrder::Text, 1, 1, Gosu::Color::BLACK)
-
-        @answer_font.draw("Name of song:", 120, 235, ZOrder::Text, 1, 1, Gosu::Color::BLACK, mode = :default)
-        @text_field.draw
-
         @font.draw("Points: #{@round_num}", 10, 370, ZOrder::Text, 1, 1, Gosu::Color::BLACK, mode = :default)
-
       else
         @alternate_background.draw(0, 0, ZOrder::Background)
-        @play_song.draw(200, 140, ZOrder::Text, 1, 1, Gosu::Color::WHITE)
-
-        @answer_font.draw("Name of song:", 120, 235, ZOrder::Text, 1, 1, Gosu::Color::WHITE, mode = :default)
-        @text_field.draw
-
         @font.draw("Points: #{@round_num}", 10, 370, ZOrder::Text, 1, 1, Gosu::Color::WHITE, mode = :default)
       end
 
       @heading_font.draw("<b>Round #{@round_num + 1}</b>", 200, 30, ZOrder::Text, 1, 1, 0xff00ff00, mode = :default)
       draw_quad(75, 35, 0xffff0000, 560, 35, 0xffff00ff, 75, 110, 0xffff0000, 560, 110, 0xffff00ff, ZOrder::Graphics)
       @play_button.draw(155, 150, ZOrder::Graphics)
+      @play_song.draw(200, 140, ZOrder::Text, 1, 1, Gosu::Color::BLACK)
+
+      @text_field.draw
+
+      @answer_font.draw("Name of song:", 120, 235, ZOrder::Text, 1, 1, Gosu::Color::BLACK, mode = :default)
 
       @next_word.draw(450, 320, ZOrder::Text, 1, 1, Gosu::Color::BLUE)
       draw_quad(420, 315, 0xff00ffff, 600, 315, 0xffffffff, 420, 375, 0xff00ff00, 600, 375, 0xff00ffff, ZOrder::Graphics)
