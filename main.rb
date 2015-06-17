@@ -113,18 +113,18 @@ class GameWindow < Gosu::Window
     @demons = Gosu::Song.new('songs/demons.wav')
     @call_me_maybe = Gosu::Song.new('songs/call me maybe.wav')
     @centuries = Gosu::Song.new('songs/centuries.wav')
-    # @counting_stars = Gosu::Song.new('song/counting stars.wav')
-    # @heartbeat_song = Gosu::Song.new('song/heartbeat songs.wav')
-    # @let_her_go = Gosu::Song.new('song/heartbeat songs.wav')
-    # @love_the_way_you_lie = Gosu::Song.new('song/love the way you lie.wav')
-    # @pompeii = Gosu::Song.new('song/pompeii.wav')
-    # @rolling_in_the_deep = Gosu::Song.new('song/rolling in the deep.wav')
-    # @royals = Gosu::Song.new('song/royals.wav')
-    # @stay_with_me = Gosu::Song.new('song/stay with me.wav')
-    # @story_of_my_life = Gosu::Song.new('song/story of my life.wav')
-    # @take_me_to_church = Gosu::Song.new('song/take me to church.wav')
-    # @wake_me_up = Gosu::Song.new('song/wake me up.wav')
-    # @my_immortal = Gosu::Song.new('song/my immortal.wav')
+    @counting_stars = Gosu::Song.new('songs/counting stars.wav')
+    @heartbeat_song = Gosu::Song.new('songs/heartbeat song.wav')
+    @let_her_go = Gosu::Song.new('songs/let her go.wav')
+    @love_the_way_you_lie = Gosu::Song.new('songs/love the way you lie.wav')
+    @pompeii = Gosu::Song.new('songs/pompeii.wav')
+    @rolling_in_the_deep = Gosu::Song.new('songs/rolling in the deep.wav')
+    @royals = Gosu::Song.new('songs/royals.wav')
+    @stay_with_me = Gosu::Song.new('songs/stay with me.wav')
+    @story_of_my_life = Gosu::Song.new('songs/story of my life.wav')
+    @take_me_to_church = Gosu::Song.new('songs/take me to church.wav')
+    @wake_me_up = Gosu::Song.new('songs/wake me up.wav')
+    @my_immortal = Gosu::Song.new('songs/my immortal.wav')
 
     @pop_songs = [[@let_it_go, "let it go", "idina menzel"],
                   [@bad_blood, "bad blood", "taylor swift"],
@@ -136,18 +136,18 @@ class GameWindow < Gosu::Window
                   [@demons, "demons", "imagine dragons"],
                   [@call_me_maybe, "call me maybe", "carly rae jepsen"],
                   [@centuries, "centuries", "fall out boy"],
-                  # [@counting_stars, "counting stars", "onerepublic"],
-                  # [@heartbeat_song, "heartbeat song", "kelly clarkson"],
-                  # [@let_her_go, "let her go", "passenger"],
-                  # [@love_the_way_you_lie, "love the way you lie", "eminem", "feat. rihanna"],
-                  # [@pompeii, "pompeii", "bastille"],
-                  # [@rolling_in_the_deep, "rolling in the deep", "adele"],
-                  # [@royals, "royals", "lorde"],
-                  # [@stay_with_me, "stay with me", "sam smith"],
-                  # [@story_of_my_life, "story of my life", "one direction"],
-                  # [@take_me_to_church, "take me to church", "hozier"],
-                  # [@wake_me_up, "wake me up", "avicii"],
-                  # [@my_immortal, "my immortal", "evanescence"]
+                  [@counting_stars, "counting stars", "onerepublic"],
+                  [@heartbeat_song, "heartbeat song", "kelly clarkson"],
+                  [@let_her_go, "let her go", "passenger"],
+                  [@love_the_way_you_lie, "love the way you lie", "eminem", "feat. rihanna"],
+                  [@pompeii, "pompeii", "bastille"],
+                  [@rolling_in_the_deep, "rolling in the deep", "adele"],
+                  [@royals, "royals", "lorde"],
+                  [@stay_with_me, "stay with me", "sam smith"],
+                  [@story_of_my_life, "story of my life", "one direction"],
+                  [@take_me_to_church, "take me to church", "hozier"],
+                  [@wake_me_up, "wake me up", "avicii"],
+                  [@my_immortal, "my immortal", "evanescence"]
                   ].shuffle
 
     @play_button = Gosu::Image.new('images/play.jpg', :tileable => false)
@@ -255,19 +255,18 @@ class GameWindow < Gosu::Window
                           [@demons, "demons", "imagine dragons"],
                           [@call_me_maybe, "call me maybe", "carly rae jepsen"],
                           [@centuries, "centuries", "fall out boy"],
-            # [@counting_stars, "counting stars", "onerepublic"],
-            # [@heartbeat_song, "heartbeat song", "kelly clarkson"],
-            # [@let_her_go, "let her go", "passenger"],
-            # [@love_the_way_you_lie, "love the way you lie", "eminem", "feat. rihanna"],
-            # [@pompeii, "pompeii", "bastille"],
-            # [@rolling_in_the_deep, "rolling in the deep", "adele"],
-            # [@royals, "royals", "lorde"],
-            # [@stay_with_me, "stay with me", "sam smith"],
-            # [@story_of_my_life, "story of my life", "one direction"],
-            # [@take_me_to_church, "take me to church", "hozier"],
-            # [@wake_me_up, "wake me up", "avicii"],
-            # [@my_immortal, "my immortal", "evanescence"]
-            ].shuffle
+                          [@counting_stars, "counting stars", "onerepublic"],
+                          [@heartbeat_song, "heartbeat song", "kelly clarkson"],
+                          [@let_her_go, "let her go", "passenger"],
+                          [@love_the_way_you_lie, "love the way you lie", "eminem", "feat. rihanna"],
+                          [@pompeii, "pompeii", "bastille"],
+                          [@rolling_in_the_deep, "rolling in the deep", "adele"],
+                          [@royals, "royals", "lorde"],
+                          [@stay_with_me, "stay with me", "sam smith"],
+                          [@story_of_my_life, "story of my life", "one direction"],
+                          [@take_me_to_church, "take me to church", "hozier"],
+                          [@wake_me_up, "wake me up", "avicii"],
+                          [@my_immortal, "my immortal", "evanescence"]].shuffle
           end
         end
     end
